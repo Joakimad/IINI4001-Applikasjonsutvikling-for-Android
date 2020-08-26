@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class RandomNumberActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 int min = 0;
                 int max = maxValue;
                 int randomNum = min + (int) (Math.random() * ((max - min) + 1));
+                System.out.println("Random Number = " + randomNum);
 
                 /* Displays result in a toast
                 Context context = getApplicationContext();
