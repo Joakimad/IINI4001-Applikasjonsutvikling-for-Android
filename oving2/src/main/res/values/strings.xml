@@ -17,4 +17,6 @@
     <string name="defaultUpperlimit">10</string>
     <string name="add">Add</string>
     <string name="multiply">Multiply</string>
+    <string name="rightAnswer">Riktig!</string>
+    <string name="wrongAnswer">Feil! Riktig svar er </string>
 </resources>
