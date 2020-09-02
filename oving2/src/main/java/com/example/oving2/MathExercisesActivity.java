@@ -13,10 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MathExercisesActivity extends AppCompatActivity {
 
+    TextView num1TextView;
+    TextView num2TextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_exercises);
+
+        num1TextView = findViewById(R.id.num1TextView);
+        num2TextView = findViewById(R.id.num2TextView);
+        final String rightAnswer = getResources().getString(R.string.rightAnswer);
+        final String wrongAnswer = getResources().getString(R.string.wrongAnswer);
 
         Button addBtn = findViewById(R.id.addBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -24,9 +32,7 @@ public class MathExercisesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean correctAnswer = false;
 
-
-                TextView num1TextView = findViewById(R.id.num1TextView);
-                TextView num2TextView = findViewById(R.id.num2TextView);
+                // Get numbers from TextView
                 int firstNumber = Integer.parseInt(num1TextView.getText().toString());
                 int secondNumber = Integer.parseInt(num2TextView.getText().toString());
 
@@ -46,8 +52,6 @@ public class MathExercisesActivity extends AppCompatActivity {
                 }
 
                 // Displays result in a toast
-                String rightAnswer = getResources().getString(R.string.rightAnswer);
-                String wrongAnswer = getResources().getString(R.string.wrongAnswer);
                 CharSequence text;
                 if (correctAnswer) {
                     text = rightAnswer;
@@ -69,8 +73,7 @@ public class MathExercisesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean correctAnswer = false;
 
-                TextView num1TextView = findViewById(R.id.num1TextView);
-                TextView num2TextView = findViewById(R.id.num2TextView);
+                // Get numbers from TextView
                 int firstNumber = Integer.parseInt(num1TextView.getText().toString());
                 int secondNumber = Integer.parseInt(num2TextView.getText().toString());
 
@@ -90,8 +93,6 @@ public class MathExercisesActivity extends AppCompatActivity {
                 }
 
                 // Displays result in a toast
-                String rightAnswer = getResources().getString(R.string.rightAnswer);
-                String wrongAnswer = getResources().getString(R.string.wrongAnswer);
                 CharSequence text;
                 if (correctAnswer) {
                     text = rightAnswer;
@@ -108,6 +109,10 @@ public class MathExercisesActivity extends AppCompatActivity {
         });
     }
 
+    // A little awkward way to accomplish this.
+    // The int input here is which number will be replaced by the random number.
+    // Is first called by buttons which will replace the first number.
+    // The onActivityResult function will call this function once more to replace the second.
     private void generateNewNumbers(int numTextView) {
         // Get upper limit
         EditText maxValueNumber = findViewById(R.id.upperlimitEditText);
@@ -122,8 +127,8 @@ public class MathExercisesActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        TextView num1TextView = findViewById(R.id.num1TextView);
-        TextView num2TextView = findViewById(R.id.num2TextView);
+        //TextView num1TextView = findViewById(R.id.num1TextView);
+        //TextView num2TextView = findViewById(R.id.num2TextView);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             num1TextView.setText(Integer.toString(data.getIntExtra("randomResult", -1)));
             generateNewNumbers(2);
