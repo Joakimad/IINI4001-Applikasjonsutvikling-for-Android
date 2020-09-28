@@ -1,3 +1,4 @@
+include ':oving3'
 include ':oving2'
 include ':app'
 rootProject.name = "IINI4001"
