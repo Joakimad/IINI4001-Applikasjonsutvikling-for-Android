@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">oving4</string>
+
+    <string-array name="heroNames">
+        <item>CAPTAIN AMERICA</item>
+        <item>HULK</item>
+        <item>IRONMAN</item>
+        <item>THOR</item>
+    </string-array>
+
+    <string-array name="realNames">
+        <item>STEVE
+            ROGERS</item>
+        <item>BRUCE
+            BANNER</item>
+        <item>TONY
+            STARK</item>
+        <item>THOR
+            ODINSON</item>
+    </string-array>
+
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="steve_rogers">STEVE ROGERS</string>
+</resources>
