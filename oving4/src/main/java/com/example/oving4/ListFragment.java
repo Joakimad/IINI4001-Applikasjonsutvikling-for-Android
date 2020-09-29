@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
 public class ListFragment extends androidx.fragment.app.ListFragment {
     private ListListener listener;
 
@@ -17,23 +19,20 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Activity activity = (Activity) context;
         this.listener = (ListListener) activity;
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        if (listener != null) {
-            listener.itemClicked((int) id);
-        }
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
+        listener.itemClicked((int) id);
         super.onListItemClick(l, v, position, id);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String[] heroNames = getResources().getStringArray(R.array.heroNames);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_list_item_1, heroNames);

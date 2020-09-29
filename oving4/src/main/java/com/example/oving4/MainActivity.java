@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Way to default to first element
+        // Default to first element
         itemClicked(0);
     }
 
@@ -45,12 +45,15 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_previous:
-                if (imageId > 0) itemClicked(imageId - 1);
-                else itemClicked(3);
+                if (imageId > 0) {
+                    itemClicked(--imageId);
+                } else itemClicked(3);
                 return true;
             case R.id.menu_next:
-                if (imageId < 3) itemClicked(imageId + 1);
-                else itemClicked(0);
+
+                if (imageId < 3) {
+                    itemClicked(++imageId);
+                } else itemClicked(0);
                 return true;
         }
         return false;
