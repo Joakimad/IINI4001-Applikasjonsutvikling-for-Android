@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">oving5</string>
+    <string name="credit_card_number">Credit Card Number:</string>
+    <string name="enter_name">Enter Name:</string>
+    <string name="send">Send</string>
+    <string name="reset">Reset</string>
+</resources>
