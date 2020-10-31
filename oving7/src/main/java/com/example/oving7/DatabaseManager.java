@@ -215,5 +215,4 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
         return res;
     }
-
 }
