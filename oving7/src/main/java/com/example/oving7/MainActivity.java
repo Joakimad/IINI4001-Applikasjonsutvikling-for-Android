@@ -2,6 +2,8 @@ package com.example.oving7;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,12 +16,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+
 public class MainActivity extends Activity {
     private DatabaseManager db;
     private final int STATE_BOOKS = 0;
     private final int STATE_AUTHORS = 1;
     private int state;
     Button switchContentBtn;
+    TextView tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tw = findViewById(R.id.list);
+        setListColorToPrefered();
 
         switchContentBtn = findViewById(R.id.changeContentBtn);
         switchContentBtn.setOnClickListener(new Button.OnClickListener() {
@@ -40,8 +48,7 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
             String text = e.getMessage();
-            TextView t = (TextView) findViewById(R.id.tw1);
-            t.setText(text);
+            tw.setText(text);
         }
 
     }
@@ -51,8 +58,8 @@ public class MainActivity extends Activity {
         for (String s : list) {
             res.append(s).append("\n");
         }
-        TextView t = (TextView) findViewById(R.id.tw1);
-        t.setText(res);
+        tw = findViewById(R.id.list);
+        tw.setText(res);
     }
 
 
@@ -71,11 +78,16 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            startActivityForResult(new Intent(MainActivity.this, SettingsActivity.class), 1);
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setListColorToPrefered() {
+        SharedPreferences appPrefs = getDefaultSharedPreferences(this);
+        String color = appPrefs.getString("backgroundColorPref", "#ffffff");
+        tw.setBackgroundColor(Color.parseColor(color));
     }
 
     private void getDataFromFile(int id) throws Exception {
@@ -105,5 +117,11 @@ public class MainActivity extends Activity {
             switchContentBtn.setText(R.string.books);
             state = STATE_AUTHORS;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setListColorToPrefered();
     }
 }

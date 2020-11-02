@@ -19,17 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/list_color"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-        <Spinner
-            android:id="@+id/colorSpinner"
+        <fragment
+            android:id="@+id/change_color_fragment"
+            android:name="com.example.oving7.ChangeColorFragment"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/savePreferencesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="goBackButton"
+            android:text="@string/save"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
