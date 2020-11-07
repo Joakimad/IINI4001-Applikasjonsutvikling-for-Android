@@ -31,7 +31,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         tw = findViewById(R.id.list);
         setListColorToPrefered();

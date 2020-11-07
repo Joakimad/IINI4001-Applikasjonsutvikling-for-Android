@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="menu_title">SUDOKU</string>
+    <string name="button_play">Spill</string>
+    <string name="button_addBoard">Legg til brett</string>
+    <string name="button_language">Språk</string>
+</resources>

@@ -1,3 +1,4 @@
+include ':sudoku'
 include ':oving7'
 include ':oving6'
 include ':oving5'
