@@ -16,18 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <fragment
-            android:id="@+id/boardFragment"
-            android:name="com.example.sudoku.BoardFragment"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_weight="0"
             android:orientation="horizontal">
 
             <Button
@@ -49,12 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:orientation="horizontal"
-            android:layout_weight="0">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button_1"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,7 +58,6 @@
 
             <Button
                 android:id="@+id/button_2"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +65,6 @@
 
             <Button
                 android:id="@+id/button_3"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,7 +72,6 @@
 
             <Button
                 android:id="@+id/button_4"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +79,6 @@
 
             <Button
                 android:id="@+id/button_5"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,7 +86,6 @@
 
             <Button
                 android:id="@+id/button_6"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -102,7 +93,6 @@
 
             <Button
                 android:id="@+id/button_7"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -110,7 +100,6 @@
 
             <Button
                 android:id="@+id/button_8"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -118,11 +107,17 @@
 
             <Button
                 android:id="@+id/button_9"
-                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/button_9" />
+
+            <Button
+                android:id="@+id/button_X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_X" />
 
         </LinearLayout>
     </LinearLayout>

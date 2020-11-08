@@ -16,5 +16,6 @@
     <string name="button_9" translatable="false">9</string>
     <string name="button_notes">Notes</string>
     <string name="button_solve">Solve</string>
+    <string name="button_X">X</string>
 
 </resources>

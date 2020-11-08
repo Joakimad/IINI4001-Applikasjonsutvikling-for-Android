@@ -4,10 +4,6 @@
     style="@style/Cell"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="false"
-    android:layout_alignParentTop="false"
-    android:layout_alignParentRight="false"
-    android:layout_alignParentBottom="false"
     android:columnCount="3"
     android:rowCount="3"
     tools:context=".BoardFragment">
@@ -22,77 +18,60 @@
 
         <Button
             android:id="@+id/row1col1"
+            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@drawable/grid_cell"
-            android:text="1"
-            android:textColor="@color/colorSecondary"
-            style="@style/Cell"/>
+            android:text="1" />
 
         <Button
             android:id="@+id/row1col2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@drawable/grid_cell"
-            android:text="2"
-            style="@style/Cell"/>
+            android:theme="@style/Cell" />
 
         <Button
             android:id="@+id/row1col3"
-            style="@style/Cell"
+            android:theme="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row2col1"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row2col2"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row2col3"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row3col1"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row3col2"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/row3col3"
-            style="@style/Cell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grid_cell"
             android:layout_columnWeight="1" />
 
     </GridLayout>
