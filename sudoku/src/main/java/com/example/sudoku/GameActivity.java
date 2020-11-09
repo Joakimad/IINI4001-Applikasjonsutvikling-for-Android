@@ -61,7 +61,7 @@ public class GameActivity extends FragmentActivity implements View.OnClickListen
                 {3, 4, 5, 7, 2, 6, 8, 9, 1}, // Box 9
         };
 
-        bundle.putSerializable("values", easy_solved);
+        bundle.putSerializable("values", easy);
 
         fragment = new BoardFragment();
         fragment.setArguments(bundle);

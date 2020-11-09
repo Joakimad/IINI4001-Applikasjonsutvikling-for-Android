@@ -1,17 +1,16 @@
 package com.example.sudoku;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-
 import androidx.fragment.app.Fragment;
-
 import java.util.Arrays;
-
 import java.util.Locale;
 
 public class BoardFragment extends Fragment {
@@ -56,8 +55,6 @@ public class BoardFragment extends Fragment {
         }
 
         return grid;
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_board, container, false);
     }
 
     public boolean isCorrectSolution() {
@@ -82,16 +79,6 @@ public class BoardFragment extends Fragment {
             int[] sorted = Arrays.copyOf(values[i], values[i].length);
             Arrays.sort(sorted);
             if (!Arrays.equals(sorted, idealValues)) all_boxes_are_correct = false;
-
-//            h_line1.add(values[i][0]);
-//            h_line1.add(values[i][1]);
-//            h_line1.add(values[i][2]);
-//            h_line2.add(values[i][3]);
-//            h_line2.add(values[i][4]);
-//            h_line2.add(values[i][5]);
-//            h_line3.add(values[i][6]);
-//            h_line3.add(values[i][7]);
-//            h_line3.add(values[i][8]);
 
             Log.d("JOAKIM", i + "counter: " + counter);
 
@@ -165,8 +152,8 @@ public class BoardFragment extends Fragment {
 
     private class Cell implements View.OnClickListener {
 
-        private int i;
-        private int j;
+        private final int i;
+        private final int j;
         Button btn;
 
         public Cell(int i, int j, Context c) {
@@ -185,8 +172,8 @@ public class BoardFragment extends Fragment {
 
             btn.setBackgroundResource(R.drawable.grid_cell);
             btn.setTextSize(21);
-            Typeface tf = Typeface.SANS_SERIF;
-            btn.setTypeface(tf);
+//            Typeface tf = Typeface.SANS_SERIF;
+//            btn.setTypeface(tf);
 
 
             // Fill in the fixed values.
