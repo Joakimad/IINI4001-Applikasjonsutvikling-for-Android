@@ -4,4 +4,6 @@
     <string name="button_play">Spill</string>
     <string name="button_addBoard">Legg til brett</string>
     <string name="button_language">Språk</string>
+    <string name="button_notes">Notat</string>
+    <string name="button_solve">Løs Brett</string>
 </resources>

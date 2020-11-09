@@ -22,15 +22,13 @@ import java.util.Locale;
 
 public class BoardFragment extends Fragment {
 
+    public int activeNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        String msg = this.getArguments().getString("message");
-        Log.d("JOAKIM", msg);
-
-        int[] values = this.getArguments().getIntArray("values");
+        int[][] values = (int[][]) this.getArguments().getSerializable("values");
 
         Context c = getActivity();
         GridLayout grid = new GridLayout(c);
@@ -56,25 +54,38 @@ public class BoardFragment extends Fragment {
             box.setLayoutParams(box_params);
 
             for (int j = 0; j < 9; j++) {
-                Button btn = new Button(c);
+                final Button btn = new Button(c);
                 //Button btn = new Button(new ContextThemeWrapper(c, R.style.Cell),null,R.style.ButtonStyle);
                 btn.setBackgroundResource(R.drawable.grid_cell);
                 btn.setTextSize(21);
-                Typeface tf = Typeface.SANS_SERIF;
-                btn.setTypeface(tf);
 
-                boolean fixedValue = values[j] != -1;
+                final boolean fixedValue = values[i][j] != -1;
                 if (fixedValue) {
-                    btn.setText(String.format(Locale.ENGLISH, "%d", values[i+j]));
+                    Typeface tf = Typeface.SANS_SERIF;
+                    btn.setTypeface(tf);
+                    btn.setText(String.format(Locale.ENGLISH, "%d", values[i][j]));
                 }
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-
                 params.width = 0;
                 params.height = 0;
                 params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f);
                 params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f);
                 btn.setLayoutParams(params);
+
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (fixedValue) {
+                            return;
+                        } else if (activeNumber == -1) {
+                            btn.setText("");
+                            return;
+                        }
+                        btn.setTextColor(getResources().getColor(R.color.colorAccent));
+                        btn.setText(String.valueOf(activeNumber));
+                    }
+                });
 
                 box.addView(btn);
             }
@@ -119,6 +130,10 @@ public class BoardFragment extends Fragment {
 
         //return inflater.inflate(R.layout.fragment_board, container, false);
         return grid;
+    }
+
+    public void setActiveNumber(int activeNumber) {
+        this.activeNumber = activeNumber;
     }
 }
 

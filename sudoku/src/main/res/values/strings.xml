@@ -4,6 +4,9 @@
     <string name="button_play">Play</string>
     <string name="button_addBoard">Add board</string>
     <string name="button_language">Language</string>
+    <string name="button_notes">Notes</string>
+    <string name="button_solve">Solve</string>
+
 
     <string name="button_1" translatable="false">1</string>
     <string name="button_2" translatable="false">2</string>
@@ -14,8 +17,6 @@
     <string name="button_7" translatable="false">7</string>
     <string name="button_8" translatable="false">8</string>
     <string name="button_9" translatable="false">9</string>
-    <string name="button_notes">Notes</string>
-    <string name="button_solve">Solve</string>
-    <string name="button_X">X</string>
+    <string name="button_X" translatable="false">X</string>
 
 </resources>
