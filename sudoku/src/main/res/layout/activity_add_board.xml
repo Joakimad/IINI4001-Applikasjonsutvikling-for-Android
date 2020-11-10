@@ -30,21 +30,21 @@
             <Button
                 android:id="@+id/button_addBoard_easy"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/button_addBoard_easy" />
 
             <Button
                 android:id="@+id/button_add_board_medium"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/button_addBoard_medium" />
 
             <Button
                 android:id="@+id/button_addBoard_hard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/button_addBoard_hard" />
 

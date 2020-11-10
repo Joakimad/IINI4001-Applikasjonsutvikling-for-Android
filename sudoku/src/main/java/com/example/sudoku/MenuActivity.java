@@ -11,6 +11,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Locale;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,7 +26,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     Button instructionBtn;
     Button languageBtn;
     Boolean isDefaultLang = true;
-    Locale locale_default = Locale.getDefault();
     Locale locale_en = new Locale("en", "US");
     Locale locale_no = new Locale("bm", "NO");
 
@@ -28,10 +33,49 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        Log.d("JOAKIM-MAIN", Locale.getDefault().getDisplayName());
+        //deleteFilesInInternalStorage();
+        addDefaultBoardsToInternalStorage(0, R.raw.easy_default);
+        addDefaultBoardsToInternalStorage(1, R.raw.medium_default);
+        addDefaultBoardsToInternalStorage(2, R.raw.hard_default);
 
         initButtons();
+    }
+
+    private void addDefaultBoardsToInternalStorage(int difficulty, int id) {
+
+        StringBuffer sb = new StringBuffer("");
+        try {
+            InputStream is = getResources().openRawResource(id);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            while (line != null) {
+                sb.append(line);
+                sb.append("\n");
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String content = sb.toString();
+
+        String filename = difficulty + "|default.csv";
+
+        File file = new File(MenuActivity.this.getFilesDir(), filename);
+
+        if (!file.exists()) {
+            Log.d("JOAKIM", "Adding file: " + filename);
+            PrintWriter writer;
+            try {
+                writer = new PrintWriter(file);
+                writer.write(content);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d("JOAKIM", "Default er allerede lagt inn");
+        }
     }
 
     private void initButtons() {
@@ -76,13 +120,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_language:
                 Locale current = Locale.getDefault();
-                Log.d("JOAKIM", current.getDisplayName());
                 if (current.getDisplayName().equals(locale_en.getDisplayName())) {
-                    Log.d("JOAKIM", "NORSK NÅ");
                     setLocale(locale_no);
                     isDefaultLang = false;
                 } else {
-                    Log.d("JOAKIM", "ENG NÅ");
                     setLocale(locale_en);
                     isDefaultLang = true;
                 }
@@ -91,7 +132,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setLocale(Locale locale) {
-
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.setLocale(locale);
@@ -105,4 +145,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         languageBtn.setText(R.string.button_language);
     }
 
+    private void deleteFilesInInternalStorage() {
+        String[] files = this.fileList();
+        for (int i = 0; i < files.length; i++) {
+            Log.d("JOAKIM", "Deleting All files");
+            File dir = getFilesDir();
+            File file = new File(dir, files[i]);
+            file.delete();
+        }
+    }
 }

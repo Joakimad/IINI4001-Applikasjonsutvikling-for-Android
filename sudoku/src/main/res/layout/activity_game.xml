@@ -20,29 +20,13 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/button_solve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_add_board"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_notes" />
-
-            <Button
-                android:id="@+id/button_solve"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_solve" />
-        </LinearLayout>
+            android:text="@string/button_solve" />
 
         <LinearLayout
             android:layout_width="match_parent"

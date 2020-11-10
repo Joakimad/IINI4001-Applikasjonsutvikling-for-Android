@@ -2,7 +2,6 @@ package com.example.sudoku;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class AddBoardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,8 +24,6 @@ public class AddBoardActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_board);
-
-        Log.d("JOAKIM-ADD", Locale.getDefault().getDisplayName());
 
         initButtons();
 
@@ -130,36 +129,33 @@ public class AddBoardActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void saveToStorage(int difficulty) {
+
         Context context = this;
+        int[][] board = fragment.getValues();
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
         String now = formatter.format(c.getTime());
 
-        String filename = difficulty + "|" + now;
-        Log.d("JOAKIM", "Adding file: " + filename);
+        String filename = difficulty + "|" + now + ".csv";
+
         File file = new File(context.getFilesDir(), filename);
 
-        String[] files = context.fileList();
-        for (int i = 0; i < files.length; i++) {
-            Log.d("JOAKIM", "Files:" + files[i]);
+        try {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board.length; j++) {
+                    builder.append(board[i][j] + "");
+                    if (j < board.length - 1)
+                        builder.append(",");
+                }
+                builder.append("\n");
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(builder.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-//        StringBuilder builder = new StringBuilder();
-//        for(int i = 0; i < board.length; i++)//for each row
-//        {
-//            for(int j = 0; j < board.length; j++)//for each column
-//            {
-//                builder.append(board[i][j]+"");//append to the output string
-//                if(j < board.length - 1)//if this is not the last row element
-//                    builder.append(",");//then add comma (if you don't like commas you can use spaces)
-//            }
-//            builder.append("\n");//append new line at the end of the row
-//        }
-//        BufferedWriter writer = new BufferedWriter(new FileWriter("/c:/sudoku" + date + ".txt"));
-//        writer.write(builder.toString());//save the string representation of the board
-//        writer.close();
-
-
     }
 }

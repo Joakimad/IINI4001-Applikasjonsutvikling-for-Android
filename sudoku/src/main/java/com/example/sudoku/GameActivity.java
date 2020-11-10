@@ -10,10 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,64 +26,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Log.d("JOAKIM-GAME", Locale.getDefault().getDisplayName());
-
         initButtons();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        int x = -1;
-        int[][] easy = {
-                {7, 4, 6, 5, x, 9, x, x, 3}, // Box 1
-                {2, 1, x, x, x, x, x, x, 5}, // Box 2
-                {x, 3, 8, 1, x, 2, x, 7, x}, // Box 3
-                {6, x, 8, 4, 7, 2, x, x, x}, // Box 4
-                {1, x, 7, x, x, 8, 3, x, x}, // Box 5
-                {x, x, 4, x, x, x, 6, x, x}, // Box 6
-                {x, x, 7, 3, 9, 4, x, x, x}, // Box 7
-                {x, x, 6, 8, x, x, 4, 7, 3}, // Box 8
-                {3, x, 5, 7, x, x, x, x, 1}, // Box 9
-        };
-
-        int[][] medium = {
-                {5, x, 9, 7, x, x, x, x, 6}, // Box 1
-                {6, 8, x, x, 1, 3, x, x, x}, // Box 2
-                {x, 4, x, 5, x, 8, 1, x, x}, // Box 3
-                {x, x, x, x, 4, x, x, x, x}, // Box 4
-                {x, x, 1, x, 2, x, x, 4, 5}, // Box 5
-                {4, x, x, x, x, 1, x, x, x}, // Box 6
-                {2, x, x, x, x, 5, x, x, x}, // Box 7
-                {4, x, x, 1, x, 2, 5, 3, x}, // Box 8
-                {6, 8, 5, x, x, x, x, x, 9}, // Box 9
-        };
-
-        int[][] hard = {
-                {4, x, x, x, x, 5, x, x, x}, // Box 1
-                {8, x, 5, x, x, x, x, x, x}, // Box 2
-                {x, x, 9, 8, 6, x, x, x, x}, // Box 3
-                {x, 7, x, 3, x, x, x, x, 6}, // Box 4
-                {x, x, 9, x, 5, x, x, 7, x}, // Box 5
-                {5, x, x, x, x, x, 1, x, x}, // Box 6
-                {x, 3, x, 5, x, x, x, 6, x}, // Box 7
-                {x, x, x, x, 3, 7, 9, x, x}, // Box 8
-                {x, x, 4, 2, x, x, x, x, x}, // Box 9
-        };
-
         Bundle bundle = new Bundle();
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         int difficulty = extras.getInt("difficulty");
 
         int[][] board;
         switch (difficulty) {
             case 0:
-                board = readFile(R.raw.easy_default);
+                board = getRandomBoard(0);
                 break;
             case 1:
-                board = readFile(R.raw.medium_default);
+                board = getRandomBoard(1);
                 break;
             case 2:
-                board = readFile(R.raw.hard_default);
+                board = getRandomBoard(2);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + difficulty);
@@ -93,15 +57,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         fragment.setArguments(bundle);
         ft.add(R.id.fragment_container, fragment);
         ft.commit();
-
     }
 
+    private int[][] getRandomBoard(int difficulty) {
 
-    private int[][] readFile(int id) {
+        ArrayList<String> availableBoards = new ArrayList<>();
+
+        // Check files
+        String[] files = GameActivity.this.fileList();
+        for (String file : files) {
+            if (file.startsWith(String.valueOf(difficulty))) {
+                availableBoards.add(file);
+            }
+        }
+
+        // Choose the only one available.
+        if (availableBoards.size() == 1) {
+            return readFile(availableBoards.get(0));
+        }
+        // Choose randomly from those available.
+        Random random = new Random();
+        String selectedBoard = availableBoards.get(random.nextInt(availableBoards.size()));
+        return readFile(selectedBoard);
+    }
+
+    private int[][] readFile(String filename) {
         int[][] board = new int[9][9];
         try {
-            InputStream is = getResources().openRawResource(id);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            File dir = getFilesDir();
+            File file = new File(dir, filename);
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = "";
             int row = 0;
             while ((line = reader.readLine()) != null) {
@@ -120,6 +106,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.d("JOAKIM", "\n" + Arrays.deepToString(board).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
         return board;
     }
 
