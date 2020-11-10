@@ -34,5 +34,9 @@
     <string name="difficulty_easy">Easy</string>
     <string name="difficulty_medium">Medium</string>
     <string name="difficulty_hard">Hard</string>
+    <string name="check_solution_success">Correct! You win!</string>
+    <string name="check_solution_failure">Sorry :( \nYou are not done yet!</string>
+    <string name="button_start_new_game">Start new game</string>
+    <string name="return_to_menu">Return to menu</string>
 
 </resources>

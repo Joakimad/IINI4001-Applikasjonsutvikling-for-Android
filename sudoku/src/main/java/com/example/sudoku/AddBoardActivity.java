@@ -87,12 +87,15 @@ public class AddBoardActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.button_addBoard_easy:
                 saveToStorage(0);
+                finish();
                 break;
             case R.id.button_add_board_medium:
                 saveToStorage(1);
+                finish();
                 break;
             case R.id.button_addBoard_hard:
                 saveToStorage(2);
+                finish();
                 break;
             case R.id.button_1:
                 fragment.setActiveNumber(1);

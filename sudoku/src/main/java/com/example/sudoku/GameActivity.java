@@ -1,10 +1,13 @@
 package com.example.sudoku;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,6 +23,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     BoardFragment fragment;
+    int difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Bundle bundle = new Bundle();
         Bundle extras = getIntent().getExtras();
         assert extras != null;
-        int difficulty = extras.getInt("difficulty");
+        difficulty = extras.getInt("difficulty");
 
         int[][] board;
         switch (difficulty) {
@@ -140,39 +144,85 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_solve:
-                if (fragment.isCorrectSolution()) Log.d("JOAKIM", "No Errors");
-                else Log.d("JOAKIM", "There are Errors");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                if (fragment.isCorrectSolution()) {
+                    builder.setMessage(R.string.check_solution_success);
+                } else {
+                    builder.setMessage(R.string.check_solution_failure);
+                }
+                builder.setNeutralButton(R.string.button_start_new_game, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(GameActivity.this, GameActivity.class);
+                        intent.putExtra("difficulty", difficulty);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton(R.string.return_to_menu, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(GameActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+                builder.show();
                 break;
             case R.id.button_1:
-                fragment.setActiveNumber(1);
+                setActiveButton(1);
                 break;
             case R.id.button_2:
-                fragment.setActiveNumber(2);
+                setActiveButton(2);
                 break;
             case R.id.button_3:
-                fragment.setActiveNumber(3);
+                setActiveButton(3);
                 break;
             case R.id.button_4:
-                fragment.setActiveNumber(4);
+                setActiveButton(4);
                 break;
             case R.id.button_5:
-                fragment.setActiveNumber(5);
+                setActiveButton(5);
                 break;
             case R.id.button_6:
-                fragment.setActiveNumber(6);
+                setActiveButton(6);
                 break;
             case R.id.button_7:
-                fragment.setActiveNumber(7);
+                setActiveButton(7);
                 break;
             case R.id.button_8:
-                fragment.setActiveNumber(8);
+                setActiveButton(8);
                 break;
             case R.id.button_9:
-                fragment.setActiveNumber(9);
+                setActiveButton(9);
                 break;
             case R.id.button_X:
-                fragment.setActiveNumber(-1);
+                setActiveButton(10);
                 break;
         }
+    }
+
+    private void setActiveButton(int id) {
+        // this methods has some exceptions for the X button.
+        String buttonID;
+        for (int i = 1; i <= 10; i++) {
+            if (i == 10) {
+                buttonID = "button_X";
+            } else {
+                buttonID = "button_" + i;
+            }
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            Button btn = findViewById(resID);
+            btn.setBackgroundResource(R.drawable.rounded_corners);
+        }
+
+        if (id == 10) {
+            id = -1;
+            buttonID = "button_X";
+        } else {
+            buttonID = "button_" + id;
+        }
+        fragment.setActiveNumber(id);
+
+        int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+        Button btn = findViewById(resID);
+        btn.setBackgroundResource(R.drawable.rounded_corners_toggled);
     }
 }

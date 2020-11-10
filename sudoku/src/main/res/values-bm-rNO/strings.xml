@@ -26,5 +26,9 @@
     <string name="difficulty_easy">Enkelt</string>
     <string name="difficulty_medium">Medium</string>
     <string name="difficulty_hard">Vanskelig</string>
+    <string name="check_solution_success">Korrekt! Du har vunnet!</string>
+    <string name="check_solution_failure">Sorry :( \nIkke helt ferdig enda!</string>
+    <string name="button_start_new_game">Start ny</string>
+    <string name="return_to_menu">Meny</string>
 
 </resources>

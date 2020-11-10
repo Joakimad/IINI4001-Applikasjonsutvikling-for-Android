@@ -63,9 +63,6 @@ public class BoardFragment extends Fragment {
     }
 
     public boolean isCorrectSolution() {
-        Log.d("JOAKIM", "Sending Values:");
-        Log.d("JOAKIM", " \n" + Arrays.deepToString(values).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-
         boolean all_boxes_are_correct = true;
         boolean all_vertical_lines_are_correct = true;
         boolean all_horizontal_lines_are_correct = true;
@@ -85,8 +82,6 @@ public class BoardFragment extends Fragment {
             Arrays.sort(sorted);
             if (!Arrays.equals(sorted, idealValues)) all_boxes_are_correct = false;
 
-            Log.d("JOAKIM", i + "counter: " + counter);
-
             line1[counter] = values[i][0];
             line2[counter] = values[i][3];
             line3[counter++] = values[i][6];
@@ -96,16 +91,8 @@ public class BoardFragment extends Fragment {
             line1[counter] = values[i][2];
             line2[counter] = values[i][5];
             line3[counter++] = values[i][8];
-            Log.d("JOAKIM", i + " line1: " + Arrays.toString(line1));
-            Log.d("JOAKIM", i + " line2: " + Arrays.toString(line2));
-            Log.d("JOAKIM", i + " line2: " + Arrays.toString(line3));
-            // 3 6
 
             if ((i + 1) % 3 == 0) {
-                Log.d("JOAKIM", "---\nH-Line 1 " + Arrays.toString(line1));
-                Log.d("JOAKIM", "H-Line 2 " + Arrays.toString(line2));
-                Log.d("JOAKIM", "H-Line 3 " + Arrays.toString(line3));
-
                 // Reset counter
                 counter = 0;
 
@@ -134,8 +121,6 @@ public class BoardFragment extends Fragment {
             if (!Arrays.equals(v_line, idealValues)) all_vertical_lines_are_correct = false;
         }
 
-        Log.d("JOAKIM", "Lines:\n" + Arrays.deepToString(values_in_lines).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-
         Log.d("JOAKIM", "Boxes: " + all_boxes_are_correct);
         Log.d("JOAKIM", "Vertical: " + all_vertical_lines_are_correct);
         Log.d("JOAKIM", "Horizontal: " + all_horizontal_lines_are_correct);
@@ -149,6 +134,10 @@ public class BoardFragment extends Fragment {
             column[i] = array[i][index];
         }
         return column;
+    }
+
+    private void checkIfGameWon() {
+
     }
 
     public void setActiveNumber(int activeNumber) {
@@ -207,6 +196,7 @@ public class BoardFragment extends Fragment {
             if (activeNumber == -1) btn.setText("");
             else btn.setText(String.valueOf(activeNumber));
             values[i][j] = activeNumber;
+            checkIfGameWon();
         }
 
         @Override

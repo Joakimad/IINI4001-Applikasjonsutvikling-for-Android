@@ -29,7 +29,7 @@
             android:textSize="70sp" />
 
         <Button
-            style="@style/SelectActiveNumberButtons"
+            style="@style/MenuButtons"
             android:layout_marginBottom="5dp"
             android:id="@+id/button_play"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:text="@string/button_play" />
 
         <Button
-            style="@style/SelectActiveNumberButtons"
+            style="@style/MenuButtons"
             android:layout_marginBottom="5dp"
             android:id="@+id/button_addBoard"
             android:layout_width="match_parent"
@@ -45,14 +45,14 @@
             android:text="@string/button_addBoard" />
 
         <Button
-            style="@style/SelectActiveNumberButtons"
+            style="@style/MenuButtons"
             android:id="@+id/button_instructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button_instructions" />
 
         <Button
-            style="@style/SelectActiveNumberButtons"
+            style="@style/MenuButtons"
             android:id="@+id/button_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

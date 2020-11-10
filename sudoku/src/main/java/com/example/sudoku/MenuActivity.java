@@ -64,7 +64,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         File file = new File(MenuActivity.this.getFilesDir(), filename);
 
         if (!file.exists()) {
-            Log.d("JOAKIM", "Adding file: " + filename);
             PrintWriter writer;
             try {
                 writer = new PrintWriter(file);
@@ -73,8 +72,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            Log.d("JOAKIM", "Default er allerede lagt inn");
         }
     }
 
@@ -95,9 +92,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_play:
 
-                String[] difficulties = {getResources().getString(R.string.difficulty_easy),
-                        getResources().getString(R.string.difficulty_medium),
-                        getResources().getString(R.string.difficulty_hard)};
+                String[] difficulties = {getResources().getString(R.string.difficulty_easy), getResources().getString(R.string.difficulty_medium), getResources().getString(R.string.difficulty_hard)};
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.difficulty_selector);
                 builder.setItems(difficulties, new DialogInterface.OnClickListener() {
