@@ -87,13 +87,13 @@ public class AddBoardActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_addBoard_easy:
-                saveToStorage(fragment.getValues(), 0);
+                saveToStorage(0);
                 break;
             case R.id.button_add_board_medium:
-                saveToStorage(fragment.getValues(), 1);
+                saveToStorage(1);
                 break;
             case R.id.button_addBoard_hard:
-                saveToStorage(fragment.getValues(), 2);
+                saveToStorage(2);
                 break;
             case R.id.button_1:
                 fragment.setActiveNumber(1);
@@ -128,7 +128,8 @@ public class AddBoardActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void saveToStorage(int[][] board, int difficulty) {
+
+    private void saveToStorage(int difficulty) {
         Context context = this;
 
         Calendar c = Calendar.getInstance();

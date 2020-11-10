@@ -19,4 +19,12 @@
         usikker på.
     </string>
     <string name="return_button">Tilbake</string>
+    <string name="button_addBoard_easy">Legg til som enkelt</string>
+    <string name="button_addBoard_medium">Legg til som medium</string>
+    <string name="button_addBoard_hard">Legg til som vanskelig</string>
+    <string name="difficulty_selector">Velg vanskelighetsgrad</string>
+    <string name="difficulty_easy">Enkelt</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Vanskelig</string>
+
 </resources>

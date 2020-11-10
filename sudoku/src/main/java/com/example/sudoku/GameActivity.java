@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Locale;
 
-public class GameActivity extends FragmentActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     BoardFragment fragment;
 

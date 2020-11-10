@@ -29,14 +29,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Locale.setDefault(locale_no);
-        Configuration config = new Configuration();
-        config.setLocale(locale_no);
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-
         Log.d("JOAKIM-MAIN", Locale.getDefault().getDisplayName());
 
+        initButtons();
+    }
+
+    private void initButtons() {
         playBtn = findViewById(R.id.button_play);
         playBtn.setOnClickListener(this);
         addBtn = findViewById(R.id.button_addBoard);
@@ -53,9 +51,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_play:
 
-                String[] difficulties = {"Easy", "Medium", "Hard"};
+                String[] difficulties = {getResources().getString(R.string.difficulty_easy),
+                        getResources().getString(R.string.difficulty_medium),
+                        getResources().getString(R.string.difficulty_hard)};
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Pick a difficulty");
+                builder.setTitle(R.string.difficulty_selector);
                 builder.setItems(difficulties, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -91,12 +91,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setLocale(Locale locale) {
+
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-        this.recreate();
+
+        // Reset button text
+        playBtn.setText(R.string.button_play);
+        instructionBtn.setText(R.string.button_instructions);
+        addBtn.setText(R.string.button_addBoard);
+        languageBtn.setText(R.string.button_language);
     }
 
 }
