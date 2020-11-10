@@ -1,16 +1,14 @@
 package com.example.sudoku;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
@@ -21,11 +19,23 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     Button addBtn;
     Button instructionBtn;
     Button languageBtn;
+    Boolean isDefaultLang = true;
+    Locale locale_default = Locale.getDefault();
+    Locale locale_en = new Locale("en", "US");
+    Locale locale_no = new Locale("bm", "NO");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Locale.setDefault(locale_no);
+        Configuration config = new Configuration();
+        config.setLocale(locale_no);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Log.d("JOAKIM-MAIN", Locale.getDefault().getDisplayName());
 
         playBtn = findViewById(R.id.button_play);
         playBtn.setOnClickListener(this);
@@ -42,54 +52,51 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.button_play:
-                //TODO ADD SELECTOR FOR DIFFICULTIES
-                intent = new Intent(this, GameActivity.class);
-                startActivity(intent);
 
+                String[] difficulties = {"Easy", "Medium", "Hard"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Pick a difficulty");
+                builder.setItems(difficulties, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MenuActivity.this, GameActivity.class);
+                        intent.putExtra("difficulty", which);
+                        startActivity(intent);
+                    }
+                });
+                builder.show();
+                break;
             case R.id.button_addBoard:
-
-                //TODO ADD BOARD IMPLEMENTATION
-                Toast.makeText(this, "Button 2 clicked", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, AddBoardActivity.class);
+                startActivity(intent);
                 break;
             case R.id.button_instructions:
                 intent = new Intent(this, InstructionsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button_language:
-                //defaultLocale = getLo
-                Locale locale_no = new Locale("bm", "NO");
-                setLocale(locale_no);
+                Locale current = Locale.getDefault();
+                Log.d("JOAKIM", current.getDisplayName());
+                if (current.getDisplayName().equals(locale_en.getDisplayName())) {
+                    Log.d("JOAKIM", "NORSK NÅ");
+                    setLocale(locale_no);
+                    isDefaultLang = false;
+                } else {
+                    Log.d("JOAKIM", "ENG NÅ");
+                    setLocale(locale_en);
+                    isDefaultLang = true;
+                }
                 break;
         }
     }
 
     private void setLocale(Locale locale) {
-
         Locale.setDefault(locale);
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
+        Configuration config = new Configuration();
+        config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-
-//        Resources resources = getResources();
-//        Configuration configuration = resources.getConfiguration();
-//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            configuration.setLocale(locale);
-//        } else {
-//            configuration.locale = locale;
-//        }
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-//            getApplicationContext().createConfigurationContext(configuration);
-//        } else {
-//            resources.updateConfiguration(configuration, displayMetrics);
-//        }
-
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
+        this.recreate();
     }
 
 }

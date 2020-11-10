@@ -9,6 +9,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Locale;
+
 public class GameActivity extends FragmentActivity implements View.OnClickListener {
 
     BoardFragment fragment;
@@ -18,12 +24,13 @@ public class GameActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        Log.d("JOAKIM-GAME", Locale.getDefault().getDisplayName());
+
         initButtons();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        Bundle bundle = new Bundle();
         int x = -1;
         int[][] easy = {
                 {7, 4, 6, 5, x, 9, x, x, 3}, // Box 1
@@ -37,37 +44,83 @@ public class GameActivity extends FragmentActivity implements View.OnClickListen
                 {3, x, 5, 7, x, x, x, x, 1}, // Box 9
         };
 
-        int[][] easy_line_errors = {
-                {7, 4, 6, 5, 8, 9, 1, 2, 3}, // Box 1
-                {2, 1, 3, 4, 7, 6, 8, 9, 5}, // Box 2
-                {4, 3, 8, 1, 5, 2, 6, 7, 9}, // Box 3
-                {6, 9, 8, 4, 7, 2, 5, 3, 1}, // Box 4
-                {1, 2, 7, 4, 5, 8, 3, 6, 9}, // Box 5
-                {9, 8, 4, 7, 5, 3, 6, 2, 1}, // Box 6
-                {1, 2, 7, 3, 9, 4, 5, 6, 8}, // Box 7
-                {9, 5, 6, 8, 1, 2, 4, 7, 3}, // Box 8
-                {3, 2, 5, 7, 4, 6, 8, 9, 1}, // Box 9
+        int[][] medium = {
+                {5, x, 9, 7, x, x, x, x, 6}, // Box 1
+                {6, 8, x, x, 1, 3, x, x, x}, // Box 2
+                {x, 4, x, 5, x, 8, 1, x, x}, // Box 3
+                {x, x, x, x, 4, x, x, x, x}, // Box 4
+                {x, x, 1, x, 2, x, x, 4, 5}, // Box 5
+                {4, x, x, x, x, 1, x, x, x}, // Box 6
+                {2, x, x, x, x, 5, x, x, x}, // Box 7
+                {4, x, x, 1, x, 2, 5, 3, x}, // Box 8
+                {6, 8, 5, x, x, x, x, x, 9}, // Box 9
         };
 
-        int[][] easy_solved = {
-                {7, 4, 6, 5, 8, 9, 1, 2, 3}, // Box 1
-                {2, 1, 9, 7, 3, 4, 6, 8, 5}, // Box 2
-                {5, 3, 8, 1, 6, 2, 4, 7, 9}, // Box 3
-                {6, 3, 8, 4, 7, 2, 9, 5, 1}, // Box 4
-                {1, 9, 7, 5, 6, 8, 3, 4, 2}, // Box 5
-                {2, 5, 4, 9, 1, 3, 6, 8, 7}, // Box 6
-                {8, 1, 7, 3, 9, 4, 2, 6, 5}, // Box 7
-                {9, 2, 6, 8, 5, 1, 4, 7, 3}, // Box 8
-                {3, 4, 5, 7, 2, 6, 8, 9, 1}, // Box 9
+        int[][] hard = {
+                {4, x, x, x, x, 5, x, x, x}, // Box 1
+                {8, x, 5, x, x, x, x, x, x}, // Box 2
+                {x, x, 9, 8, 6, x, x, x, x}, // Box 3
+                {x, 7, x, 3, x, x, x, x, 6}, // Box 4
+                {x, x, 9, x, 5, x, x, 7, x}, // Box 5
+                {5, x, x, x, x, x, 1, x, x}, // Box 6
+                {x, 3, x, 5, x, x, x, 6, x}, // Box 7
+                {x, x, x, x, 3, 7, 9, x, x}, // Box 8
+                {x, x, 4, 2, x, x, x, x, x}, // Box 9
         };
 
-        bundle.putSerializable("values", easy);
+        Bundle bundle = new Bundle();
+        Bundle extras = getIntent().getExtras();
+        int difficulty = extras.getInt("difficulty");
+
+        int[][] board;
+        switch (difficulty) {
+            case 0:
+                board = readFile(R.raw.easy_default);
+                break;
+            case 1:
+                board = readFile(R.raw.medium_default);
+                break;
+            case 2:
+                board = readFile(R.raw.hard_default);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + difficulty);
+        }
+
+        bundle.putSerializable("values", board);
 
         fragment = new BoardFragment();
         fragment.setArguments(bundle);
         ft.add(R.id.fragment_container, fragment);
         ft.commit();
 
+    }
+
+
+    private int[][] readFile(int id) {
+        int[][] board = new int[9][9];
+        try {
+            InputStream is = getResources().openRawResource(id);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line = "";
+            int row = 0;
+            while ((line = reader.readLine()) != null) {
+                String[] cols = line.split(",");
+                int col = 0;
+                for (String c : cols) {
+                    if (c.equals("x")) {
+                        c = "-1";
+                    }
+                    board[row][col] = Integer.parseInt(c);
+                    col++;
+                }
+                row++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return board;
     }
 
     private void initButtons() {

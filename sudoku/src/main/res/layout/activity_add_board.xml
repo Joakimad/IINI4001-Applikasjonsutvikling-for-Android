@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:background="@color/colorPrimary"
     android:padding="15dp"
-    tools:context=".GameActivity">
+    tools:context=".AddBoardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,28 +20,34 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button_add_board"
+                android:id="@+id/button_addBoard_easy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/button_notes" />
+                android:text="@string/button_addBoard_easy" />
 
             <Button
-                android:id="@+id/button_solve"
+                android:id="@+id/button_add_board_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/button_solve" />
+                android:text="@string/button_addBoard_medium" />
+
+            <Button
+                android:id="@+id/button_addBoard_hard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_addBoard_hard" />
+
         </LinearLayout>
 
         <LinearLayout

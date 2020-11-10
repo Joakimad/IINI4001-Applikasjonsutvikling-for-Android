@@ -1,7 +1,6 @@
 package com.example.sudoku;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -9,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridLayout;
 
 import androidx.fragment.app.Fragment;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 public class BoardFragment extends Fragment {
 
@@ -158,6 +155,10 @@ public class BoardFragment extends Fragment {
         this.activeNumber = activeNumber;
     }
 
+    public int[][] getValues() {
+        return values;
+    }
+
     private class Cell implements View.OnClickListener, View.OnLongClickListener {
 
         private final int i;
@@ -179,11 +180,7 @@ public class BoardFragment extends Fragment {
             btn_param.width = 0;
             btn.setLayoutParams(btn_param);
 
-            btn.setBackgroundResource(R.drawable.grid_cell);
             btn.setTextSize(21);
-//            Typeface tf = Typeface.SANS_SERIF;
-//            btn.setTypeface(tf);
-
 
             // Fill in the fixed values.
             assert values != null;
@@ -191,7 +188,9 @@ public class BoardFragment extends Fragment {
             boolean fixedValue = value != -1;
             if (fixedValue) {
                 btn.setText(String.valueOf(value));
+                btn.setBackgroundResource(R.drawable.grid_cell_fixed);
             } else {
+                btn.setBackgroundResource(R.drawable.grid_cell);
                 btn.setOnClickListener(this);
                 btn.setOnLongClickListener(this);
             }
@@ -204,7 +203,7 @@ public class BoardFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Button btn = (Button) view;
-            btn.setTextColor(getResources().getColor(R.color.colorAccent));
+            //btn.setTextColor(getResources().getColor(R.color.colorAccent));
             if (activeNumber == -1) btn.setText("");
             else btn.setText(String.valueOf(activeNumber));
             values[i][j] = activeNumber;

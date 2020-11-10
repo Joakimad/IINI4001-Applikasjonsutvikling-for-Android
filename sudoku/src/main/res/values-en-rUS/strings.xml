@@ -6,17 +6,6 @@
     <string name="button_language">Language</string>
     <string name="button_notes">Notes</string>
     <string name="button_solve">Check Solution</string>
-
-    <string name="button_1" translatable="false">1</string>
-    <string name="button_2" translatable="false">2</string>
-    <string name="button_3" translatable="false">3</string>
-    <string name="button_4" translatable="false">4</string>
-    <string name="button_5" translatable="false">5</string>
-    <string name="button_6" translatable="false">6</string>
-    <string name="button_7" translatable="false">7</string>
-    <string name="button_8" translatable="false">8</string>
-    <string name="button_9" translatable="false">9</string>
-    <string name="button_X" translatable="false">X</string>
     <string name="button_instructions">Instructions</string>
     <string name="instructions_text">
         Sudoku is played on a 9x9 grid. This grid again consists of 3x3 squares.Each row, column and
@@ -27,8 +16,5 @@
         and hold a square it will be highlighted to help you remember any squares that you are
         unsure about.</string>
     <string name="return_button">Return</string>
-    <string name="button_addBoard_easy">Add as easy</string>
-    <string name="button_addBoard_medium">Add as medium</string>
-    <string name="button_addBoard_hard">Add as hard</string>
 
 </resources>
