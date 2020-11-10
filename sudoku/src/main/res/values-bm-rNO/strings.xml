@@ -4,4 +4,19 @@
     <string name="button_play">Spill</string>
     <string name="button_addBoard">Legg til brett</string>
     <string name="button_language">Språk</string>
+    <string name="button_notes">Notat</string>
+    <string name="button_solve">Sjekk løsning</string>
+    <string name="button_instructions">Instruksjoner</string>
+    <string name="instructions_text">
+        Sudoku er spilt på en 9x9 rutenett. Rutenettet består igjen av 3x3 blokker. Hver rad,
+        kolonne og boks må fylles ut med tallene 1-9 uten gjentakelser.
+    </string>
+    <string name="instructions_title">Instruksjoner</string>
+    <string name="instructions_gameplay">
+        Bruk knappene på bunnen av skjermen til å velge ditt aktive nummer. Trykk på hvilken som
+        helst tom rute for fylle den ruten med ditt aktive nummer. Hvis du trykker og holder inne
+        på en rute så vil den ruten bli avmerket for å hjelpe deg å holde styr på ruter du er
+        usikker på.
+    </string>
+    <string name="return_button">Return</string>
 </resources>

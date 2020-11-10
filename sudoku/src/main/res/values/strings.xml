@@ -4,6 +4,8 @@
     <string name="button_play">Play</string>
     <string name="button_addBoard">Add board</string>
     <string name="button_language">Language</string>
+    <string name="button_notes">Notes</string>
+    <string name="button_solve">Check Solution</string>
 
     <string name="button_1" translatable="false">1</string>
     <string name="button_2" translatable="false">2</string>
@@ -14,8 +16,16 @@
     <string name="button_7" translatable="false">7</string>
     <string name="button_8" translatable="false">8</string>
     <string name="button_9" translatable="false">9</string>
-    <string name="button_notes">Notes</string>
-    <string name="button_solve">Solve</string>
-    <string name="button_X">X</string>
+    <string name="button_X" translatable="false">X</string>
+    <string name="button_instructions">Instructions</string>
+    <string name="instructions_text">
+        Sudoku is played on a 9x9 grid. This grid again consists of 3x3 squares.Each row, column and
+        box needs to be filled out with the numbers 1–9 without repeating any numbers.</string>
+    <string name="instructions_title">Instructions</string>
+    <string name="instructions_gameplay">Use the buttons at the bottom of the game screen to select
+        your active number. Press any empty square to fill it with your active number. If you press
+        and hold a square it will be highlighted to help you remember any squares that you are
+        unsure about.</string>
+    <string name="return_button">Return</string>
 
 </resources>

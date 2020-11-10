@@ -4,12 +4,16 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
+
 import androidx.fragment.app.Fragment;
+
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -45,6 +49,10 @@ public class BoardFragment extends Fragment {
                     GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f));
             box_param.height = 0;
             box_param.width = 0;
+
+            int marginInDp = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+            box_param.setMargins(marginInDp, marginInDp, marginInDp, marginInDp);
             box.setLayoutParams(box_param);
 
             for (int j = 0; j < 9; j++) {
@@ -150,11 +158,12 @@ public class BoardFragment extends Fragment {
         this.activeNumber = activeNumber;
     }
 
-    private class Cell implements View.OnClickListener {
+    private class Cell implements View.OnClickListener, View.OnLongClickListener {
 
         private final int i;
         private final int j;
         Button btn;
+        private boolean highlighted = false;
 
         public Cell(int i, int j, Context c) {
             this.i = i;
@@ -184,6 +193,7 @@ public class BoardFragment extends Fragment {
                 btn.setText(String.valueOf(value));
             } else {
                 btn.setOnClickListener(this);
+                btn.setOnLongClickListener(this);
             }
         }
 
@@ -194,9 +204,25 @@ public class BoardFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Button btn = (Button) view;
+            btn.setTextColor(getResources().getColor(R.color.colorAccent));
             if (activeNumber == -1) btn.setText("");
             else btn.setText(String.valueOf(activeNumber));
             values[i][j] = activeNumber;
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            Button btn = (Button) view;
+            if (highlighted) {
+                btn.setTextColor(getResources().getColor(R.color.colorAccent));
+                btn.setBackgroundResource(R.drawable.grid_cell);
+                highlighted = false;
+            } else {
+                btn.setTextColor(getResources().getColor(R.color.colorPrimary));
+                btn.setBackgroundResource(R.drawable.grid_cell_note);
+                highlighted = true;
+            }
+            return true;
         }
     }
 }

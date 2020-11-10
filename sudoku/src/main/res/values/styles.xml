@@ -1,9 +1,9 @@
 <resources>
     <!-- Base application theme. -->
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">sans-serif-condensed-light</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="colorPrimary">@color/colorSecondary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -24,7 +24,7 @@
         <item name="background">@drawable/grid_cell</item>
         <item name="android:textColor">@color/colorSecondary</item>
         <item name="android:textSize">21sp</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:layout_gravity">fill</item>
     </style>
 
